@@ -18,9 +18,9 @@ class Map:
         
     
     def setStartPoint(self,y,x):
-        self.map[x][y].setValue("S")
+        self.map[x-1][y-1].setValue("S")
     def setEndPoint(self,y,x):
-        self.map[x][y].setValue("E")
+        self.map[x-1][y-1].setValue("E")
     
     def my_range(self, start, end, step):
         while start <= end:
@@ -31,11 +31,11 @@ class Map:
     #    print(x)    
 
     def setWall(self,start_point: tuple,end_point: tuple=None):
-        start_point = (start_point[1],start_point[0])
-        end_point = (end_point[1],end_point[0])
+        start_point = (start_point[1]-1,start_point[0]-1)
         if end_point is None:
             self.map[start_point[0]][start_point[1]].setValue("W")
             return
+        end_point = (end_point[1]-1,end_point[0]-1)
         if ( not (0 <= start_point[0] < self.rows) 
         or not (0 <= start_point[1] < self.cols)
         or not (0 <= end_point[0] < self.rows)

@@ -1,13 +1,12 @@
 from Map import Node,Map as Map
 
+# Boundaries count start at 1
+# Create Map 
 map = Map()
-# Boundaries count start at 0 
-map.setStartPoint(0,0)
-map.setEndPoint(19,19)
-
-#map.setWall((0,2))
-#map.setWall((1,5))
-
-map.setWall((9,0),(9,9))
+map.setStartPoint(1,1)
+map.setEndPoint(20,20)
+map.setWall((10,1),(10,10))
+map.setWall((5,10),(10,10))
+map.setWall((17,10),(17,20))
 
 map.print()
