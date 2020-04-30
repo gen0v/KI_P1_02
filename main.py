@@ -11,7 +11,7 @@ map.setWall((5,10),(10,10))
 map.setWall((17,10),(17,20))
 
 #test
-map.print()
 
 astar = Astar(map)
 astar.findPath(map.startPoint,map.endPoint)
+map.print()

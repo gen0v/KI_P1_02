@@ -1,6 +1,6 @@
 
 class Node:
-    def __init__(self, x, y):
+    def __init__(self, y, x):
         self.value = "."
         self.f = 0
         self.g = 0
@@ -11,6 +11,22 @@ class Node:
         self.y = y
     def setValue(self, value):
         self.value = value
+    def __lt__(self, other):
+        return self.f < other.f
+    def isWall(self):
+        #print(" ++ " + self.value == "W")
+        return self.value == "W"
+    def setPath(self):
+        p = self.parent
+        count = 0
+        while p is not None:
+            print("Parent position is : " + str(p.x)
+                + " " + str(p.y))
+            p.setValue('X')
+            p = p.parent
+            count += 1
+        print("Cost: " + str(count))
+            
 
 
 
@@ -42,14 +58,14 @@ class Map:
     #    print(x)    
     def nghbrs(self, node):
         res = []
-        if self.map[node.x+1][node.y] is not None:
-            res.insert(0,self.map[node.x+1][node.y])
-        if self.map[node.x][node.y+1] is not None:
-            res.insert(0,self.map[node.x][node.y+1])
-        if self.map[node.x-1][node.y] is not None:
-            res.insert(0,self.map[node.x-1][node.y])
-        if self.map[node.x][node.y-1] is not None:
-            res.insert(0,self.map[node.x][node.y-1])
+        if node.x < 19 :#and self.map[node.x+1][node.y] is not None:
+            res.append(self.map[node.x+1][node.y])
+        if node.y < 19 :#and self.map[node.x][node.y+1] is not None:
+            res.append(self.map[node.x][node.y+1])
+        if node.x > 1:#self.map[node.x-1][node.y] is not None:
+            res.append(self.map[node.x-1][node.y])
+        if node.y > 1:#self.map[node.x][node.y-1] is not None:
+            res.append(self.map[node.x][node.y-1])
         return res
 
 
