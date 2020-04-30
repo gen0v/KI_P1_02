@@ -18,14 +18,16 @@ class Astar:
             # self.open.sort(reverse=True)
             
             # this works
-            self.open.sort()
+            ## self.open.sort()
+            ####
             
             # self.map.print()
 
             # for x in self.open:
             #     print(round(x.f,2))
             # lowest cost
-            s = self.open.pop()
+            ## s = self.open.pop()
+            s = heapq.heappop(self.open)
             # print("VALUE : " + str(s.f))
             # print("Current position is : " + str(s.x)
             #     + " " + str(s.y))
@@ -71,7 +73,8 @@ class Astar:
                         child.f = child.g + child.h
                         # child.setValue("G")
                         # child.setValue(round(child.f,1))
-                        self.open.append(child)
+                        ## self.open.append(child)
+                        heapq.heappush(self.open, child)
                     else:
                         # see if this path is better
                         if s.g + 1 < child.g:

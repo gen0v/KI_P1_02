@@ -12,7 +12,7 @@ class Node:
     def setValue(self, value):
         self.value = value
     def __lt__(self, other):
-        return self.f > other.f
+        return self.h > other.h
     def isWall(self):
         #print(" ++ " + self.value == "W")
         return self.value == "W"
