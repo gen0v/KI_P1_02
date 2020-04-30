@@ -1,11 +1,18 @@
 
 class Node:
-    def __init__(self):
+    def __init__(self, x, y):
         self.value = "."
-        self.cost = 0
+        self.f = 0
+        self.g = 0
+        self.h = 0
         self.parent = None
+        self.path = []
+        self.x = x
+        self.y = y
     def setValue(self, value):
         self.value = value
+
+
 
 
 #Attention: for right display of graph x and y are switched
@@ -14,13 +21,17 @@ class Map:
         print("Creating map...")
         self.cols = cols
         self.rows = rows
-        self.map = [[Node() for x in range(rows)] for y in range(cols)]
+        self.map = [[Node(x,y) for x in range(rows)] for y in range(cols)]
+        self.startPoint = 0
+        self.endPoint = 0
         
     
     def setStartPoint(self,y,x):
         self.map[x-1][y-1].setValue("S")
+        self.startPoint = self.map[x-1][y-1]
     def setEndPoint(self,y,x):
         self.map[x-1][y-1].setValue("E")
+        self.endPoint = self.map[x-1][y-1]
     
     def my_range(self, start, end, step):
         while start <= end:
@@ -29,6 +40,18 @@ class Map:
 
     #for x in my_range(1, 10, 0.5):
     #    print(x)    
+    def nghbrs(self, node):
+        res = []
+        if self.map[node.x+1][node.y] is not None:
+            res.insert(0,self.map[node.x+1][node.y])
+        if self.map[node.x][node.y+1] is not None:
+            res.insert(0,self.map[node.x][node.y+1])
+        if self.map[node.x-1][node.y] is not None:
+            res.insert(0,self.map[node.x-1][node.y])
+        if self.map[node.x][node.y-1] is not None:
+            res.insert(0,self.map[node.x][node.y-1])
+        return res
+
 
     def setWall(self,start_point: tuple,end_point: tuple=None):
         start_point = (start_point[1]-1,start_point[0]-1)
