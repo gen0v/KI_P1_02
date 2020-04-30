@@ -1,7 +1,7 @@
 
 class Node:
     def __init__(self, y, x):
-        self.value = "."
+        self.value = " "
         self.f = 0
         self.g = 0
         self.h = 0
@@ -12,7 +12,7 @@ class Node:
     def setValue(self, value):
         self.value = value
     def __lt__(self, other):
-        return self.f < other.f
+        return self.f > other.f
     def isWall(self):
         #print(" ++ " + self.value == "W")
         return self.value == "W"
@@ -20,12 +20,14 @@ class Node:
         p = self.parent
         count = 0
         while p is not None:
-            print("Parent position is : " + str(p.x)
-                + " " + str(p.y))
+            # print("Parent position is : " + str(p.x)
+            #     + " " + str(p.y))
             p.setValue('X')
             p = p.parent
             count += 1
         print("Cost: " + str(count))
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
             
 
 
@@ -89,7 +91,7 @@ class Map:
             print("Error: Not in same line")
             return
         elif start_point[0] == end_point[0]:
-            print("Points in the same col, proceeding...")
+            # print("Points in the same col, proceeding...")
             if start_point[1] < end_point[1]:
                 for p in self.my_range(start_point[1],end_point[1],1):
                     self.map[start_point[0]][p].setValue("W")
@@ -98,7 +100,7 @@ class Map:
                     self.map[start_point[0]][p].setValue("W")
             
         else:
-            print("Points in the same row, proceeding...")
+            # print("Points in the same row, proceeding...")
             if start_point[0] < end_point[0]:
                 for p in self.my_range(start_point[0],end_point[0],1):
                     self.map[p][start_point[1]].setValue("W")
@@ -106,17 +108,23 @@ class Map:
                  for p in self.my_range(end_point[0],start_point[0],1):
                     self.map[p][start_point[1]].setValue("W")
 
-        """WRONG
-        if start_point[0] < end_point[0]:
-            #start at start_point and go right
-            for p in self.my_range(start_point[0],end_point[0],1):
-                self.map[p][start_point[1]].setValue("W")
-        """
+
 
     def print(self):
         for row in reversed(self.map):
             for col in row:
-                print(col.value,end=" ")
+                # if len(str(col.value)) == 4:
+                #     print(col.value,end="")
+                # if len(str(col.value)) == 3:
+                #     print(col.value,end=" ")
+                # if len(str(col.value)) == 2:
+                #     print(col.value,end=" ")
+                # if len(str(col.value)) == 1:
+                #     print(col.value,end="   ")
+                # else:
+                #     print(col.value,end=" ")
+
+                print(col.value,end="   ")
             print()
 
 

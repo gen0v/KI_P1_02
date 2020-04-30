@@ -1,6 +1,7 @@
 from queue import Queue
 from Map import Node
 import heapq
+import math
 
 class Astar:
     def __init__(self, map):
@@ -12,48 +13,77 @@ class Astar:
         self.initialize(start)
         # --------------------------
         while len(self.open) > 0:
-            # input("GO")
-            self.map.print()
-            
             # Repair heap (idk if needed atm)
-            heapq.heapify(self.open)
+            # heapq.heapify(self.open)
+            # self.open.sort(reverse=True)
+            
+            # this works
+            self.open.sort()
+            
+            # self.map.print()
+
+            # for x in self.open:
+            #     print(round(x.f,2))
             # lowest cost
             s = self.open.pop()
-            print("Current position is : " + str(s.x)
-                + " " + str(s.y))
+            # print("VALUE : " + str(s.f))
+            # print("Current position is : " + str(s.x)
+            #     + " " + str(s.y))
+            # input("GO")
+            s.setValue(".")
             if s == end:
-                print("END")
+                # print("END")
                 return s.setPath()
                 return
             self.closed.append(s)
             
             # going through nghbrs
-            for s2 in self.map.nghbrs(s):
+            for child in self.map.nghbrs(s):
                 
-                if s2 in self.closed or s2.isWall():
+                if child in self.closed or child.isWall():
+                    # print(str(child.x) + " " + str(child.y) + " IGNORED")
+                    # child.setValue("I")
                     #ignore it
                     continue
+                # else:
+                #     child.g = s.g + 1
+                #     child.h = ((child.x - end.x) ** 2)+((child.y - end.y) ** 2)
+                #     child.f = child.g + child.h
+                #     if child in self.open:
+                #         # TEST
+                #         for n in self.open:
+                #             if n == child:
+                #                 if child.g > n.g:
+                #                     continue
+                #                 else:
+                #                     break
+                #     child.setValue("G")
+                #     self.open.append(child)
                 else:
-                    if s2 not in self.open:
+                    if child not in self.open:
                         # make parent
-                        s2.parent = s
+                        child.parent = s
                         # record f g h costs
-                        s2.g = s.g + 1
-                        s2.h = abs(s2.x - end.x) + abs(s2.y - end.y)
-                        s2.f = s2.g + s2.h
-                        # s2.setValue("G")
-                        self.open.append(s2)
+                        child.g = s.g + 1
+                        child.h = abs(child.x - end.x) + abs(child.y - end.y)
+                        # child.h = math.sqrt(((child.x - end.x) ** 2)+((child.y - end.y) ** 2))
+                        
+                        child.f = child.g + child.h
+                        # child.setValue("G")
+                        # child.setValue(round(child.f,1))
+                        self.open.append(child)
                     else:
                         # see if this path is better
-                        if s.g + 1 < s2.g:
-                            s2.parent = s
-                            s2.h = abs(s2.x - end.x) + abs(s2.y - end.y)
-                            s2.f = s2.g + s2.h
-                            s2.setValue("'")
+                        if s.g + 1 < child.g:
+                            child.parent = s
+                            child.h = abs(child.x - end.x) + abs(child.y - end.y)
+                            # child.h = math.sqrt(((child.x - end.x) ** 2)+((child.y - end.y) ** 2))
+                            child.f = child.g + child.h
+                            child.setValue("'")
 
 
                     
-                #self.updateVertex(s,s2)
+                #self.updateVertex(s,child)
         return "no path found"
                         
 
@@ -64,10 +94,10 @@ class Astar:
         heapq.heappush(self.open,start)
         
     
-    def updateVertex(self, s,s2):
-        if s.g + 1 < s2.g:
-            s2.g = s.g + 1
-            s2.parent = s
-            if s2 in self.open:
-                self.open.remove(0,s2)
-            self.open.insert(0,s2)
+    # def updateVertex(self, s,child):
+    #     if s.g + 1 < child.g:
+    #         child.g = s.g + 1
+    #         child.parent = s
+    #         if child in self.open:
+    #             self.open.remove(0,child)
+    #         self.open.insert(0,child)

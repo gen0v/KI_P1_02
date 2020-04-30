@@ -6,9 +6,14 @@ from aStar import Astar
 map = Map()
 map.setStartPoint(1,1)
 map.setEndPoint(20,20)
+#normal walls
 map.setWall((10,1),(10,10))
 map.setWall((5,10),(10,10))
 map.setWall((17,10),(17,20))
+
+# map.setWall((10,1),(10,5))
+# map.setWall((1,10),(15,10))
+# map.setWall((17,5),(17,20))
 
 #test
 
