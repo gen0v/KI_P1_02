@@ -12,11 +12,12 @@ class Node:
     def setValue(self, value):
         self.value = value
     def __lt__(self, other):
-        return self.h > other.h
+        return self.f < other.f
     def isWall(self):
         #print(" ++ " + self.value == "W")
         return self.value == "W"
     def setPath(self):
+        self.setValue('X')
         p = self.parent
         count = 0
         while p is not None:
