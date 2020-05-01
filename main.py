@@ -14,14 +14,14 @@ map.setWall((17,10),(17,20))
 
 map2 = copy.deepcopy(map)
 
-print("-- Manh.")
+print("-- Manh. (1)")
 astar = Astar(map,1)
 astar.findPath(map.startPoint,map.endPoint)
 map.print()
 ###
 print()
 ###
-print("-- Eukli.")
+print("-- Eukli. (2)")
 astar = Astar(map2,2)
 astar.findPath(map2.startPoint,map2.endPoint)
 map2.print()
