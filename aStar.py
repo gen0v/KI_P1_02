@@ -19,6 +19,7 @@ class Astar:
                 # print("END FOUND")
                 return s.setPath()
             self.closed.append(s)
+            s.setValue(".")
             for child in self.map.nghbrs(s):
                 if child.isWall():
                     continue
